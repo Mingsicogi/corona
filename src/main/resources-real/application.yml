@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:13306/corona
-    username: testUser
-    password: test!123123
+    url: jdbc:mysql://minsdb.ckhp3dikb4ge.ap-northeast-2.rds.amazonaws.com/corona
+    username: admin
+    password: dytndrhdwnaldzl!123
 
   jpa:
     hibernate:
@@ -26,3 +26,7 @@ spring:
       charset: UTF-8
       enabled: true
       force: true
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
