@@ -11,6 +11,7 @@
 	<groupId>com.mins</groupId>
 	<artifactId>corona</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>corona</name>
 	<description>Corona Noti Web Service</description>
 
@@ -57,6 +58,14 @@
 			<version>2.10.3</version>
 		</dependency>
 
+		<!-- war 배포를 위 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -80,6 +89,7 @@
 	</dependencies>
 
 	<build>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -94,7 +104,12 @@
 			<resource>
 				<directory>src/main/resources-${env}</directory>
 			</resource>
+			<resource>
+				<directory>${basedir}/src/main/webapp/resources/**</directory>
+			</resource>
 		</resources>
+
+
 	</build>
 
 	<profiles>
