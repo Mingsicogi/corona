@@ -11,4 +11,5 @@
 
     <link href="../../../resources/favicon.ico" rel="icon" type="image/x-icon"/>
     <link href="../../../resources/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>

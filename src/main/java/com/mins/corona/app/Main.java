@@ -6,13 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class Main {
 
-	@RequestMapping("/")
+	@RequestMapping(value = {"/", "/main", "/corona/main"})
 	public String defaultPage() {
-		return "redirect:" + "/whoareyou";
-	}
-
-	@RequestMapping("/main")
-	public String main() {
-		return "index";
+		return "redirect:" + "/corona/whoareyou";
 	}
 }
