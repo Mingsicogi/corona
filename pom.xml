@@ -106,6 +106,7 @@
 			</resource>
 			<resource>
 				<directory>${basedir}/src/main/webapp/resources/**</directory>
+				<targetPath>${basedir}/src/main/webapp</targetPath>
 			</resource>
 		</resources>
 
