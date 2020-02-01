@@ -95,6 +95,19 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.3</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<!-- this is relative to the pom.xml directory -->
+							<directory>${basedir}/src/main/webapp/resources</directory>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
 		</plugins>
 
 		<resources>
@@ -103,10 +116,6 @@
 			</resource>
 			<resource>
 				<directory>src/main/resources-${env}</directory>
-			</resource>
-			<resource>
-				<directory>${basedir}/src/main/webapp/resources/**</directory>
-				<targetPath>${basedir}/src/main/webapp</targetPath>
 			</resource>
 		</resources>
 
