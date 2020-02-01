@@ -27,9 +27,16 @@ public class Infectee {
 	private Set<InfecteeMoveLocation> location = new HashSet<>();
 
 	private int howManyPeopleMeet;
-	private String detailInfo;
+
+	private String markingColor; // 감염자 표시 색
+
+	private String virusSourceAreaVisitYn; // 우한시 방문여
+
+	private String whichHospital; // 입원 병원
 
 	private Date issueOpenDate;
+
+	private String detailInfo;
 
 	private Date regYmdt;
 

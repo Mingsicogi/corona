@@ -7,18 +7,12 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 	<jsp:include page="common/default.jsp"/>
-	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=kjtrlp60or"></script>
+	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=kjtrlp60or&submodules=visualization"></script>
 </head>
 <body>
-	<div class="row">
-		<div class="col-lg-8">
-			<div id="map" style="width: 100%; height: 400px">
-			</div>
+	<div id="map" style="width: 100%; height: 400px"></div>
+	<div>
 
-		</div>
-		<div class="col-lg-4">
-			HI  HI
-		</div>
 	</div>
 <script>
 	$(document).ready(function () {
@@ -40,7 +34,7 @@
 			center: new naver.maps.LatLng(position.coords.latitude, position.coords.longitude),
 			zoom: 8,
 			minZoom: 1,
-			mapTypeId: naver.maps.MapTypeId.HYBRID,
+			// mapTypeId: naver.maps.MapTypeId.HYBRID,
 			zoomControl: true,
 			zoomControlOptions: {
 				position: naver.maps.Position.TOP_RIGHT
@@ -58,19 +52,29 @@
 
 		var infecteeInfoList = JSON.parse(JSON.stringify(${infecteeInfoJsonStr}));
 
+		var markingData = [];
+
+		console.log(infecteeInfoList);
 		for(i = 0; i < infecteeInfoList.length; i++) {
-			var location = infecteeInfoList[i].location.valueOf();
+			var location = infecteeInfoList[i].location;
+
 			for(j = 0; j < location.length; j++) {
-				var marker = new naver.maps.Marker({
-					position: new naver.maps.LatLng(location[j].y, location[j].x),
-					map: map
-				});
+				markingData.push(new naver.maps.LatLng(location[j].y, location[j].x));
 			}
+
+			var dotmap = new naver.maps.visualization.DotMap({
+				map: map,
+				data: markingData,
+				radius: 30,
+				fillColor: infecteeInfoList[i].markingColor
+			});
 		}
 
-		// var marker = new naver.maps.Marker({
-		// 	position: new naver.maps.LatLng(37.3595704, 127.105399),
-		// 	map: map
+		// console.log(markingData);
+		// var dotmap = new naver.maps.visualization.DotMap({
+		// 	map: map,
+		// 	data: markingData,
+		// 	radius: 30
 		// });
 	}
 </script>

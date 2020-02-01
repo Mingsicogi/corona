@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Setter
@@ -17,6 +18,7 @@ public class InfecteeMoveLocation {
 
     private String x; // 위도
     private String y; // 경도
+    private Date arriveYmdt; //
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference

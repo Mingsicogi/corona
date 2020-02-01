@@ -52,18 +52,24 @@ public class InfecteeManage {
 	@RequestMapping("/add")
 	@ResponseBody
 	public ResponseEntity<String> input(InfecteeInputDTO param) {
-		InfecteeMoveLocation location = new InfecteeMoveLocation();
-		location.setX(param.getX());
-		location.setY(param.getY());
 
 		Infectee infectee;
 		try {
+			InfecteeMoveLocation location = new InfecteeMoveLocation();
+			location.setX(param.getX());
+			location.setY(param.getY());
+			location.setArriveYmdt(SDF.parse(param.getArriveYmdt()));
+
 			infectee = new Infectee();
+			infectee.setMarkingColor(param.getMarkingColor());
+			infectee.setVirusSourceAreaVisitYn(param.getVirusSourceAreaVisitYn());
+			infectee.setWhichHospital(param.getWhichHospital());
 			infectee.setHowManyPeopleMeet(param.getHowManyPeopleMeet());
 			infectee.setDetailInfo(param.getDetailInfo());
 			infectee.setInfectOrder(param.getInfectOrder());
 			infectee.setIssueOpenDate(SDF.parse(param.getIssueOpenDate()));
 			infectee.addLocation(location);
+
 			infectee.setRegYmdt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
 
 		} catch (ParseException e) {

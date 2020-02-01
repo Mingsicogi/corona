@@ -39,6 +39,33 @@
                             </tr>
                             <tr>
                                 <td>
+                                    우한시 방문 여부
+                                </td>
+                                <td>
+                                    <select class="form-control input-sm" type="text" name="virusSourceAreaVisitYn">
+                                        <option value="Y">Y</option>
+                                        <option value="N">N</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    감염자 입원 병원
+                                </td>
+                                <td>
+                                    <input class="form-control input-sm" type="text" name="whichHospital">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    감염자 표시 색
+                                </td>
+                                <td>
+                                    <input class="form-control input-sm" type="text" name="markingColor" placeholder="영어로 입력해주세요">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     접촉자 수
                                 </td>
                                 <td>
@@ -52,6 +79,7 @@
                                 <td>
                                     <input class="form-control input-sm" type="text" name="x" placeholder="위도">
                                     <input class="form-control input-sm" type="text" name="y" placeholder="경도">
+                                    <input class="form-control input-sm date" type="text" id="arriveYmdt" name="arriveYmdt" placeholder="위치에 도착한 시간" autocomplete="off">
                                 </td>
                             </tr>
                             <tr>
@@ -67,7 +95,7 @@
                                     확진일
                                 </td>
                                 <td>
-                                    <input class="form-control input-sm" type="text" id="issueOpenDate" name="issueOpenDate" placeholder="확진자가 발생한 일시" autocomplete="off">
+                                    <input class="form-control input-sm date" type="text" id="issueOpenDate" name="issueOpenDate" placeholder="확진자가 발생한 일시" autocomplete="off">
                                 </td>
                             </tr>
                         </table>
@@ -77,7 +105,7 @@
             <div style="text-align: center">
                 <a type="button" class="btn btn-success" onclick="saveInfo()" >데이터 추가</a>
                 <a type="button" class="btn btn-warning" href="/corona/infectee/list" >추가된 데이터 목록</a>
-                <a type="button" class="btn btn-danger" href="/main" >메인 페이지로 이동</a>
+                <a type="button" class="btn btn-danger" href="/corona/main" >메인 페이지로 이동</a>
             </div>
         </div>
     </div>
@@ -88,6 +116,7 @@
 <script>
     $(document).ready(function () {
         callBootstrapCalendar('issueOpenDate');  	// 요약내용을 쓰는 필드는 기본 컨텐츠일때만 사용
+        callBootstrapCalendar('arriveYmdt');  	// 요약내용을 쓰는 필드는 기본 컨텐츠일때만 사용
     }); //ready
 
     function saveInfo() {
@@ -157,10 +186,13 @@
             todayHighlight: true,
             weekStart: 0
         };
-        $("#" + targetId).datepicker(clareCalendar);
-        var date = moment($("#" + targetId).val(), "YYYYMMDD");
+        // $("#" + targetId).datepicker(clareCalendar);
+        $('.date').datepicker(clareCalendar);
+        // var date = moment($("#" + targetId).val(), "YYYYMMDD");
+        var date = moment($('.date').val(), "YYYYMMDD");
         if (date.isValid()) {
-            $("#" + targetId).datepicker('update', date.toDate());
+            // $("#" + targetId).datepicker('update', date.toDate());
+            $('.date').datepicker('update', date.toDate());
         }
     }
 

@@ -73,7 +73,7 @@
                 </div>
                 <div style="text-align: center">
                     <a type="button" class="btn btn-success" href="javascript:history.back();" >데이터 추가 페이지로 이동</a>
-                    <a type="button" class="btn btn-danger" href="/main" >메인 페이지로 이동</a>
+                    <a type="button" class="btn btn-danger" href="/corona/main" >메인 페이지로 이동</a>
                 </div>
             </div>
         </div>
