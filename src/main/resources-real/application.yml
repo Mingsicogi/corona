@@ -30,3 +30,10 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
+
+  cache:
+    ehcache:
+      config: classpath:ehcache.xml
+
+server:
+  port: 18080
