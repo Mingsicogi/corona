@@ -58,7 +58,7 @@
 			<version>2.10.3</version>
 		</dependency>
 
-		<!-- war 배포를 위 -->
+		<!-- war 배포를 위함 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>

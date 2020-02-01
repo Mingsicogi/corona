@@ -12,7 +12,7 @@
 <body>
 	<div class="row">
 		<div class="col-lg-8">
-			<div id="map" style="width:100%;height:800px;">
+			<div id="map" style="width: 100%; height: 400px">
 			</div>
 
 		</div>
@@ -38,10 +38,23 @@
 	function showPosition(position) {
 		var mapOptions = {
 			center: new naver.maps.LatLng(position.coords.latitude, position.coords.longitude),
-			zoom: 10
+			zoom: 8,
+			minZoom: 1,
+			mapTypeId: naver.maps.MapTypeId.HYBRID,
+			zoomControl: true,
+			zoomControlOptions: {
+				position: naver.maps.Position.TOP_RIGHT
+			},
+			disableKineticPan: false
 		};
 
 		var map = new naver.maps.Map('map', mapOptions);
+
+		map.setOptions({
+			mapTypeControl: true,
+			scaleControl: false,
+			logoControl: false
+		});
 
 		var infecteeInfoList = JSON.parse(JSON.stringify(${infecteeInfoJsonStr}));
 
