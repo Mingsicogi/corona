@@ -31,3 +31,7 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
+
+  cache:
+    ehcache:
+      config: classpath:ehcache.xml

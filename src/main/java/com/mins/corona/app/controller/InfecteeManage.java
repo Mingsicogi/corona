@@ -36,7 +36,6 @@ public class InfecteeManage {
 
 	private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyyMMdd");
 
-
 	@RequestMapping("/input")
 	public String inputPage(){
 		return "infecteeInput";
