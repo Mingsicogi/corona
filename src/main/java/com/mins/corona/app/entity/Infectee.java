@@ -1,9 +1,9 @@
 package com.mins.corona.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,7 +13,6 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Infectee {
 
@@ -24,6 +23,7 @@ public class Infectee {
 	private Long infectOrder;
 
 	@OneToMany(mappedBy = "infectee", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private Set<InfecteeMoveLocation> location = new HashSet<>();
 
 	private int howManyPeopleMeet;

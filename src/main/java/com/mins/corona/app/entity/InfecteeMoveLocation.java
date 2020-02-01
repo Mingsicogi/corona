@@ -1,15 +1,14 @@
 package com.mins.corona.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Setter
 @Getter
-@ToString
 public class InfecteeMoveLocation {
 
     @Id
@@ -20,5 +19,6 @@ public class InfecteeMoveLocation {
     private String y; // 경도
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private Infectee infectee;
 }
