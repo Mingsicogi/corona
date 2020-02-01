@@ -5,11 +5,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.sql.Date;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -22,12 +21,20 @@ public class Infectee {
 	@GeneratedValue
 	private Long id;
 
+	private Long infectOrder;
+
+	@OneToMany(mappedBy = "infectee", cascade = CascadeType.ALL)
+	private Set<InfecteeMoveLocation> location = new HashSet<>();
+
 	private int howManyPeopleMeet;
-	private String x; // 위도
-	private String y; // 경
 	private String detailInfo;
 
 	private Date issueOpenDate;
 
 	private Date regYmdt;
+
+	public void addLocation(InfecteeMoveLocation location) {
+		this.location.add(location);
+		location.setInfectee(this);
+	}
 }
