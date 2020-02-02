@@ -22,15 +22,21 @@ public class Infectee {
 
 	private Long infectOrder;
 
+	private String age;
+
+	private String country;
+
+
+
 	@OneToMany(mappedBy = "infectee", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private Set<InfecteeMoveLocation> location = new HashSet<>();
 
-	private int howManyPeopleMeet;
+	private Integer howManyPeopleMeet;
 
 	private String markingColor; // 감염자 표시 색
 
-	private String virusSourceAreaVisitYn; // 우한시 방문여
+	private String virusSourceAreaVisitYn; // 우한시 방문여부
 
 	private String whichHospital; // 입원 병원
 

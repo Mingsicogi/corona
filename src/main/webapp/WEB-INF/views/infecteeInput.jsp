@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <jsp:include page="common/default.jsp"/>
-<body>
+<body style="color: white">
 <br>
 <br>
 <div>

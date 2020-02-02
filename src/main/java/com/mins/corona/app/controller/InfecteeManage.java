@@ -6,6 +6,7 @@ import com.mins.corona.app.entity.Infectee;
 import com.mins.corona.app.entity.InfecteeMoveLocation;
 import com.mins.corona.app.repository.InfecteeRepository;
 import com.mins.corona.app.service.NaverMapService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -36,11 +37,6 @@ public class InfecteeManage {
 
 	private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyyMMdd");
 
-	@RequestMapping("/input")
-	public String inputPage(){
-		return "infecteeInput";
-	}
-
 	@RequestMapping("/list")
 	public String list(Model model) {
 		List<Infectee> infecteeList = infecteeRepository.findAll();
@@ -49,27 +45,33 @@ public class InfecteeManage {
 		return "infecteeList";
 	}
 
+	@RequestMapping("/input")
+	public String inputPage(String action, Model model){
+	    model.addAttribute("reqAction", action);
+
+		return "infecteeInput";
+	}
+
 	@RequestMapping("/add")
 	@ResponseBody
 	public ResponseEntity<String> input(InfecteeInputDTO param) {
-
 		Infectee infectee;
 		try {
 			InfecteeMoveLocation location = new InfecteeMoveLocation();
-			location.setX(param.getX());
-			location.setY(param.getY());
+			BeanUtils.copyProperties(param, location);
+//			location.setX(param.getX());
+//			location.setY(param.getY());
 			location.setArriveYmdt(SDF.parse(param.getArriveYmdt()));
 
 			infectee = new Infectee();
-			infectee.setMarkingColor(param.getMarkingColor());
-			infectee.setVirusSourceAreaVisitYn(param.getVirusSourceAreaVisitYn());
-			infectee.setWhichHospital(param.getWhichHospital());
-			infectee.setHowManyPeopleMeet(param.getHowManyPeopleMeet());
-			infectee.setDetailInfo(param.getDetailInfo());
-			infectee.setInfectOrder(param.getInfectOrder());
+//			infectee.setMarkingColor(param.getMarkingColor());
+//			infectee.setVirusSourceAreaVisitYn(param.getVirusSourceAreaVisitYn());
+//			infectee.setWhichHospital(param.getWhichHospital());
+//			infectee.setHowManyPeopleMeet(param.getHowManyPeopleMeet());
+//			infectee.setDetailInfo(param.getDetailInfo());
+//			infectee.setInfectOrder(param.getInfectOrder());
 			infectee.setIssueOpenDate(SDF.parse(param.getIssueOpenDate()));
 			infectee.addLocation(location);
-
 			infectee.setRegYmdt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
 
 		} catch (ParseException e) {

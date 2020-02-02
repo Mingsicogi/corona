@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <jsp:include page="common/default.jsp"/>
-<body>
+<body style="color: white">
 <br>
 <br>
 <div class="row">
@@ -18,26 +18,28 @@
             <br>
             <div class="ibox-content">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-bordered table-hover" style="text-align: center">
                         <col width="5%">
                         <col width="5%">
-                        <col width="15%">
+                        <col width="25%">
+                        <col width="7%">
                         <col width="*">
                         <col width="8%">
                         <col width="8%">
                         <col width="8%">
                         <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>접촉자 수</th>
-                            <th>감염자 이동 경로</th>
-                            <th>추가 보정</th>
-                            <th>확진자 발생일</th>
-                            <th>데이터 등록일</th>
-                            <th>기능</th>
+                            <th style="text-align: center">ID</th>
+                            <th style="text-align: center">접촉자 수</th>
+                            <th style="text-align: center">감염자 이동 경로</th>
+                            <th style="text-align: center">우한시 방문 여부</th>
+                            <th style="text-align: center">추가 정보</th>
+                            <th style="text-align: center">확진자 발생일</th>
+                            <th style="text-align: center">데이터 등록일</th>
+                            <th style="text-align: center">기능</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody style="text-align: center">
                             <c:choose>
                                 <c:when test="${not empty infecteeInfoList}">
                                     <c:forEach var="result" items="${infecteeInfoList}" varStatus="status">
@@ -46,9 +48,22 @@
                                             <td>${result.howManyPeopleMeet}</td>
                                             <td>
                                                 <c:forEach var="locationResult" items="${result.location}" varStatus="status">
-                                                    위도 : ${locationResult.x} | 경도 : ${locationResult.y}<br>
+                                                    위도 : ${locationResult.x} | 경도 : ${locationResult.y}
+                                                    | 도착일:
+                                                    <fmt:parseDate var="parseDate" value="${locationResult.arriveYmdt}" pattern="yyyy-MM-dd HH:mm"/>
+                                                    <fmt:formatDate value="${parseDate}" pattern="yyyy-MM-dd HH:mm"/>
+                                                    <br>
                                                 </c:forEach>
                                             </td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${result.virusSourceAreaVisitYn eq 'Y'}">
+                                                        <span style="color: red">Y</span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        N
+                                                    </c:otherwise>
+                                                </c:choose>
                                             <td>${result.detailInfo}</td>
                                             <td><fmt:parseDate var="parseDate" value="${result.issueOpenDate}" pattern="yyyy-MM-dd HH:mm"/>
                                                 <fmt:formatDate value="${parseDate}" pattern="yyyy-MM-dd HH:mm"/>
