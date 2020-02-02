@@ -22,11 +22,9 @@ public class Infectee {
 
 	private Long infectOrder;
 
-	private String age;
+	private Integer age;
 
 	private String country;
-
-
 
 	@OneToMany(mappedBy = "infectee", cascade = CascadeType.ALL)
 	@JsonManagedReference

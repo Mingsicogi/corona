@@ -3,11 +3,18 @@
 <html>
 <jsp:include page="common/default.jsp"/>
 <body style="color: white">
+<style>
+    .datepicker {
+        color: #0f0f0f;
+    }
+</style>
 <br>
 <br>
-<div>
-    위경도 검색 : <input class="form-group" id="addr" name="query" placeholder="위경도를 검색할 주소를 입력해주세요." style="width: 500px"/>
-    <button onclick="selectXY()">조회</button>
+<div class="col-lg-6">
+    <div>
+        위경도 검색 : <input class="form-group" id="addr" name="query" placeholder="위경도를 검색할 주소를 입력해주세요." style="width: 80%; color: #0f0f0f"/>
+        <button onclick="selectXY()">조회</button>
+    </div>
     <div id="searchResult" style="display: none">
         위도 : <text id="lat"></text> | 경도 : <text id="lon"></text>
     </div>
@@ -25,7 +32,7 @@
             <div class="ibox-content">
                 <div class="table-responsive">
                     <form id="addFrm" name="addFrm">
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-bordered">
                             <col width="20%">
                             <col width="*">
                             <tbody>
@@ -35,6 +42,22 @@
                                 </td>
                                 <td>
                                     <input class="form-control input-sm" type="text" name="infectOrder">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    나이
+                                </td>
+                                <td>
+                                    <input class="form-control input-sm" type="text" name="age">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    국적
+                                </td>
+                                <td>
+                                    <input class="form-control input-sm" type="text" name="country">
                                 </td>
                             </tr>
                             <tr>

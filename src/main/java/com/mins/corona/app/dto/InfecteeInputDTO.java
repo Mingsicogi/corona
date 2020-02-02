@@ -13,6 +13,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class InfecteeInputDTO {
     private Long infectOrder;
 
+    private Integer age;
+    private String country;
+
     private String x;
     private String y;
     @DateTimeFormat(pattern = "YYYYDDMM")

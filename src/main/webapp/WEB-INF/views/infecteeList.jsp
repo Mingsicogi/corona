@@ -18,7 +18,9 @@
             <br>
             <div class="ibox-content">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover" style="text-align: center">
+                    <table class="table table-bordered" style="text-align: center">
+                        <col width="5%">
+                        <col width="5%">
                         <col width="5%">
                         <col width="5%">
                         <col width="25%">
@@ -29,14 +31,16 @@
                         <col width="8%">
                         <thead>
                         <tr>
-                            <th style="text-align: center">ID</th>
-                            <th style="text-align: center">접촉자 수</th>
-                            <th style="text-align: center">감염자 이동 경로</th>
-                            <th style="text-align: center">우한시 방문 여부</th>
-                            <th style="text-align: center">추가 정보</th>
-                            <th style="text-align: center">확진자 발생일</th>
-                            <th style="text-align: center">데이터 등록일</th>
-                            <th style="text-align: center">기능</th>
+                            <th style="text-align: center; background-color: green">ID</th>
+                            <th style="text-align: center; background-color: green">나이</th>
+                            <th style="text-align: center; background-color: green">국적</th>
+                            <th style="text-align: center; background-color: green">접촉자 수</th>
+                            <th style="text-align: center; background-color: green">감염자 이동 경로</th>
+                            <th style="text-align: center; background-color: green">우한시 방문 여부</th>
+                            <th style="text-align: center; background-color: green">추가 정보</th>
+                            <th style="text-align: center; background-color: green">확진자 발생일</th>
+                            <th style="text-align: center; background-color: green">데이터 등록일</th>
+                            <th style="text-align: center; background-color: green">기능</th>
                         </tr>
                         </thead>
                         <tbody style="text-align: center">
@@ -44,7 +48,9 @@
                                 <c:when test="${not empty infecteeInfoList}">
                                     <c:forEach var="result" items="${infecteeInfoList}" varStatus="status">
                                         <tr>
-                                            <td style="text-align: center">${result.id}</td>
+                                            <td>${result.id}</td>
+                                            <td>${result.age}</td>
+                                            <td>${result.country}</td>
                                             <td>${result.howManyPeopleMeet}</td>
                                             <td>
                                                 <c:forEach var="locationResult" items="${result.location}" varStatus="status">

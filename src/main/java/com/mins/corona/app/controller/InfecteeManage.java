@@ -6,7 +6,6 @@ import com.mins.corona.app.entity.Infectee;
 import com.mins.corona.app.entity.InfecteeMoveLocation;
 import com.mins.corona.app.repository.InfecteeRepository;
 import com.mins.corona.app.service.NaverMapService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -57,19 +56,22 @@ public class InfecteeManage {
 	public ResponseEntity<String> input(InfecteeInputDTO param) {
 		Infectee infectee;
 		try {
+			// 위치정보
 			InfecteeMoveLocation location = new InfecteeMoveLocation();
-			BeanUtils.copyProperties(param, location);
-//			location.setX(param.getX());
-//			location.setY(param.getY());
+			location.setX(param.getX());
+			location.setY(param.getY());
 			location.setArriveYmdt(SDF.parse(param.getArriveYmdt()));
 
+			// 감염자 정보
 			infectee = new Infectee();
-//			infectee.setMarkingColor(param.getMarkingColor());
-//			infectee.setVirusSourceAreaVisitYn(param.getVirusSourceAreaVisitYn());
-//			infectee.setWhichHospital(param.getWhichHospital());
-//			infectee.setHowManyPeopleMeet(param.getHowManyPeopleMeet());
-//			infectee.setDetailInfo(param.getDetailInfo());
-//			infectee.setInfectOrder(param.getInfectOrder());
+			infectee.setMarkingColor(param.getMarkingColor());
+			infectee.setVirusSourceAreaVisitYn(param.getVirusSourceAreaVisitYn());
+			infectee.setWhichHospital(param.getWhichHospital());
+			infectee.setHowManyPeopleMeet(param.getHowManyPeopleMeet());
+			infectee.setDetailInfo(param.getDetailInfo());
+			infectee.setInfectOrder(param.getInfectOrder());
+			infectee.setAge(param.getAge());
+			infectee.setCountry(param.getCountry());
 			infectee.setIssueOpenDate(SDF.parse(param.getIssueOpenDate()));
 			infectee.addLocation(location);
 			infectee.setRegYmdt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
