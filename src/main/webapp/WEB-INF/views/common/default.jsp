@@ -13,5 +13,6 @@
     <link href="https://mins-resource.s3.ap-northeast-2.amazonaws.com/resources/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://mins-resource.s3.ap-northeast-2.amazonaws.com/resources/custom/js/bootstrap-datepicker.js"></script>
-
+    <script src="https://mins-resource.s3.ap-northeast-2.amazonaws.com/resources/custom/js/moment-with-locales.js"></script>
+    <script src="https://mins-resource.s3.ap-northeast-2.amazonaws.com/resources/vendors/bootstrap/dist/js/bootstrap.js"></script>
 </head>

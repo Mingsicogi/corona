@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -27,11 +28,13 @@
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-                <h5>감염자 데이터 추가</h5>
+                <h2 style="font-size: xx-large;">감염자 데이터 <c:choose><c:when test="${reqAction eq 'modify'}">수정</c:when><c:otherwise>추가</c:otherwise> </c:choose></h2>
             </div>
             <div class="ibox-content">
                 <div class="table-responsive">
                     <form id="addFrm" name="addFrm">
+                        <input id="id" name="id" type="hidden">
+                        <input id="locationId" name="locationId" type="hidden">
                         <table class="table table-bordered">
                             <col width="20%">
                             <col width="*">
@@ -41,7 +44,7 @@
                                     발생 순서
                                 </td>
                                 <td>
-                                    <input class="form-control input-sm" type="text" name="infectOrder">
+                                    <input class="form-control input-sm" type="text" id="infectOrder" name="infectOrder">
                                 </td>
                             </tr>
                             <tr>
@@ -49,7 +52,7 @@
                                     나이
                                 </td>
                                 <td>
-                                    <input class="form-control input-sm" type="text" name="age">
+                                    <input class="form-control input-sm" type="text" id="age" name="age">
                                 </td>
                             </tr>
                             <tr>
@@ -57,7 +60,7 @@
                                     국적
                                 </td>
                                 <td>
-                                    <input class="form-control input-sm" type="text" name="country">
+                                    <input class="form-control input-sm" type="text" id="country" name="country">
                                 </td>
                             </tr>
                             <tr>
@@ -65,7 +68,7 @@
                                     우한시 방문 여부
                                 </td>
                                 <td>
-                                    <select class="form-control input-sm" type="text" name="virusSourceAreaVisitYn">
+                                    <select class="form-control input-sm" type="text" id="virusSourceAreaVisitYn" name="virusSourceAreaVisitYn">
                                         <option value="Y">Y</option>
                                         <option value="N">N</option>
                                     </select>
@@ -76,7 +79,7 @@
                                     감염자 입원 병원
                                 </td>
                                 <td>
-                                    <input class="form-control input-sm" type="text" name="whichHospital">
+                                    <input class="form-control input-sm" type="text" id="whichHospital" name="whichHospital">
                                 </td>
                             </tr>
                             <tr>
@@ -84,7 +87,7 @@
                                     감염자 표시 색
                                 </td>
                                 <td>
-                                    <input class="form-control input-sm" type="text" name="markingColor" placeholder="영어로 입력해주세요">
+                                    <input class="form-control input-sm" type="text" id="markingColor" name="markingColor" placeholder="영어로 입력해주세요">
                                 </td>
                             </tr>
                             <tr>
@@ -92,7 +95,7 @@
                                     접촉자 수
                                 </td>
                                 <td>
-                                    <input class="form-control input-sm" type="text" name="howManyPeopleMeet">
+                                    <input class="form-control input-sm" type="text" id="howManyPeopleMeet" name="howManyPeopleMeet">
                                 </td>
                             </tr>
                             <tr>
@@ -100,8 +103,8 @@
                                     확진자가 발생한 위치
                                 </td>
                                 <td>
-                                    <input class="form-control input-sm" type="text" name="x" placeholder="위도">
-                                    <input class="form-control input-sm" type="text" name="y" placeholder="경도">
+                                    <input class="form-control input-sm" type="text" id="x" name="x" placeholder="위도">
+                                    <input class="form-control input-sm" type="text" id="y" name="y" placeholder="경도">
                                     <input class="form-control input-sm date" type="text" id="arriveYmdt" name="arriveYmdt" placeholder="위치에 도착한 시간" autocomplete="off">
                                 </td>
                             </tr>
@@ -110,7 +113,7 @@
                                     감염자에 대한 추가 정보
                                 </td>
                                 <td>
-                                    <textarea class="form-control input-sm" name="detailInfo" ></textarea>
+                                    <textarea class="form-control input-sm" id="detailInfo" name="detailInfo" ></textarea>
                                 </td>
                             </tr>
                             <tr>
@@ -138,13 +141,38 @@
 </html>
 <script>
     $(document).ready(function () {
-        callBootstrapCalendar('issueOpenDate');  	// 요약내용을 쓰는 필드는 기본 컨텐츠일때만 사용
-        callBootstrapCalendar('arriveYmdt');  	// 요약내용을 쓰는 필드는 기본 컨텐츠일때만 사용
+        callBootstrapCalendar();  	// 요약내용을 쓰는 필드는 기본 컨텐츠일때만 사용
+
+        var data = '${reqAction}';
+        if(data !== '' && data === "modify") {
+
+            $("#id").val('${id}');
+
+            $("#infectOrder").val('${infectOrder}');
+            $("#age").val('${age}');
+            $("#country").val('${country}');
+            $("#location").val('${location}');
+            $("#howManyPeopleMeet").val('${howManyPeopleMeet}');
+            $("#markingColor").val('${markingColor}');
+            $("#virusSourceAreaVisitYn").val('${virusSourceAreaVisitYn}');
+            $("#markingColor").val('${markingColor}');
+            $("#whichHospital").val('${whichHospital}');
+            $("#detailInfo").val('${detailInfo}');
+
+            // first location
+            $("#locationId").val('${location[0].id}');
+            $("#x").val('${location[0].x}');
+            $("#y").val('${location[0].y}');
+            $("#arriveYmdt").val(getFormatDate(new Date(${location[0].arriveYmdt})));
+
+            //date
+            $("#issueOpenDate").val(getFormatDate(new Date(${issueOpenDate})));
+        }
     }); //ready
 
     function saveInfo() {
         $.ajax({
-            url: '/corona/infectee/add',
+            url: '/corona/infectee/add?action=' + '${reqAction}',
             data: $("#addFrm").serialize(),
             type: 'POST',
             async: false,
@@ -186,7 +214,7 @@
         });
     }
 
-    function callBootstrapCalendar(targetId) {
+    function callBootstrapCalendar() {
         var formatStr = "yyyymmdd";
         var clareCalendar = {
             language: $("html").attr('lang'),
@@ -219,4 +247,15 @@
         }
     }
 
+    /**
+     *  yyyyMMdd 포맷으로 반환
+     */
+    function getFormatDate(date){
+        var year = date.getFullYear();              //yyyy
+        var month = (1 + date.getMonth());          //M
+        month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+        var day = date.getDate();                   //d
+        day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+        return  year + '' + month + '' + day;
+    }
 </script>

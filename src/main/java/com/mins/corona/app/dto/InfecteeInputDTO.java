@@ -11,6 +11,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 @ToString
 @NoArgsConstructor
 public class InfecteeInputDTO {
+
+    private Long id;
+    private Long locationId;
+
     private Long infectOrder;
 
     private Integer age;

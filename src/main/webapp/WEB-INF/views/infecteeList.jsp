@@ -7,6 +7,11 @@
 <html>
 <jsp:include page="common/default.jsp"/>
 <body style="color: white">
+<style>
+    .datepicker {
+        color: #0f0f0f;
+    }
+</style>
 <br>
 <br>
 <div class="row">
@@ -78,7 +83,12 @@
                                                 <fmt:formatDate value="${parseDate}" pattern="yyyy-MM-dd HH:mm"/>
                                             </td>
                                             <td>
-                                                <button class="btn btn-sm btn-primary" onclick="">이동경로 추가</button>
+                                                <div>
+                                                    <button class="btn btn-sm btn-primary" onclick="openAddLocationModal('addModal','${result.id}')">이동경로 추가</button>
+                                                </div>
+                                                <div>
+                                                    <a class="btn btn-sm btn-primary" href='/corona/infectee/input?action=modify&id=${result.id}'>수정하기</a>
+                                                </div>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -93,12 +103,151 @@
                     </table>
                 </div>
                 <div style="text-align: center">
-                    <a type="button" class="btn btn-success" href="javascript:history.back();" >데이터 추가 페이지로 이동</a>
+                    <a type="button" class="btn btn-success" href="/corona/infectee/input?action=add" >데이터 추가 페이지로 이동</a>
                     <a type="button" class="btn btn-danger" href="/corona/main" >메인 페이지로 이동</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div id="addModal" class="modal" tabindex="-1" role="dialog" aria-hidden="true" >
+    <div class="modal-dialog" >
+        <div class="modal-content animated fadeIn" style="width: 730px; background-color: #0f0f0f">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">감염자 위치 정보 추가하기</h4>
+            </div>
+            <div class="modal-body" style="background-color: #0f0f0f">
+                <div>
+                    위경도 검색 : <input class="form-group" id="addr" name="query" placeholder="위경도를 검색할 주소를 입력해주세요." style="width: 80%; color: #0f0f0f"/>
+                    <button class="btn btn-sm btn-success" onclick="selectXY()">조회</button>
+                </div>
+                <form id="addFrm" name="addFrm">
+                    <input id="id" name="id" type="hidden">
+                    <table class="table">
+                        <col width="25%">
+                        <col width="*">
+                        <tr>
+                            <th>위도</th>
+                            <td>
+                                <input class="form-control input-sm" type="text" id="x" name="x">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>위도</th>
+                            <td>
+                                <input class="form-control input-sm" type="text" id="y" name="y">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>위치에 도착한 일짜</th>
+                            <td>
+                                <input class="form-control input-sm date" type="text" id="arriveYmdt" name="arriveYmdt" placeholder="위치에 도착한 시간" autocomplete="off">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <div id="addAuthorityEmpList"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal" >Close</button>
+                <button type="button" class="btn btn-primary" onclick="addLocationInfo();">
+                    위치정보 추가
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
+<script>
+    $(document).ready(function () {
+        callBootstrapCalendar();  	// 요약내용을 쓰는 필드는 기본 컨텐츠일때만 사용
+    }); //ready
+
+    function openAddLocationModal(modalId, infecteeId) {
+        $("#id").val(infecteeId);
+        $("#" + modalId).modal("show");
+    }
+
+    function selectXY() {
+        var query = $("#addr").val();
+
+        if (query === null || query === '') {
+            alert("위경도를 검색할 주소를 입력해주세요.");
+            return;
+        }
+
+        var data = {
+            query: query
+        };
+
+        $.ajax({
+            url: '/corona/infectee/search/location',
+            data: data,
+            type: 'POST',
+            async: false,
+            error: function (error) {
+                alert('Error!');
+            },
+            success: function (data) {
+                $("#x").val(data.x);
+                $("#y").val(data.y);
+            }
+        });
+    }
+
+    function addLocationInfo() {
+        $.ajax({
+            url: '/corona/infectee/location/add',
+            data: $("#addFrm").serialize(),
+            type: 'POST',
+            async: false,
+            error: function (error) {
+                alert('Error!');
+            },
+            success: function (data) {
+                alert("데이터가 추가 완료!")
+                window.location.reload();
+            }
+        });
+    }
+
+    function callBootstrapCalendar() {
+        var formatStr = "yyyymmdd";
+        var clareCalendar = {
+            language: $("html").attr('lang'),
+            autoclose: true,
+            calendarWeeks: false,
+            clearBtn: false,
+            daysOfWeekDisabled: [],
+            forceParse: true,
+            format: formatStr,
+            keyboardNavigation: true,
+            minViewMode: 0,
+            multidate: false,
+            multidateSeparator: ',',
+            orientation: "auto",
+            rtl: false,
+            startDate: -Infinity,
+            startView: 0,
+            endDate: Infinity,
+            todayBtn: "linked",
+            todayHighlight: true,
+            weekStart: 0
+        };
+        // $("#" + targetId).datepicker(clareCalendar);
+        $('.date').datepicker(clareCalendar);
+        // var date = moment($("#" + targetId).val(), "YYYYMMDD");
+        var date = moment($('.date').val(), "YYYYMMDD");
+        if (date.isValid()) {
+            // $("#" + targetId).datepicker('update', date.toDate());
+            $('.date').datepicker('update', date.toDate());
+        }
+    }
+</script>
