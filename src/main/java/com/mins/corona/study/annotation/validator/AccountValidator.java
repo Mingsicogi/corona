@@ -7,6 +7,11 @@ import org.apache.commons.lang3.StringUtils;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * AccountDTO 유효성 검사를 위한 클래스
+ *
+ * @author minssogi
+ */
 public class AccountValidator implements ConstraintValidator<AccountValid, AccountDTO> {
 
     @Override
