@@ -2,6 +2,7 @@ package com.mins.corona.api.event;
 
 import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Builder
@@ -10,7 +11,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id") // jpa를 사용하는 경우 상호 연관 관계를 가지는 필드는 hashcode 값으로 사용하면 overflow 발생 가능성이 있으니 주의.
+@Entity
 public class Event {
+
+    @Id
+    @GeneratedValue
     private Long id;
     private String name;
     private String description;
@@ -24,5 +29,7 @@ public class Event {
     private int limitOfEnrollment; // 등록에 참가하는 인원수 제한
     private boolean offline;
     private boolean free;
+
+    @Enumerated(EnumType.STRING) // ORDINAL을 사용하게 되면 추후 Enum 순서 변경시 값이 꼬여 문제가 발생할 수 있음.
     private EventStatus eventStatus;
 }
