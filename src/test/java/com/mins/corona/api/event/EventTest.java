@@ -1,4 +1,4 @@
-package com.mins.corona.app.entity;
+package com.mins.corona.api.event;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -9,7 +9,7 @@ class EventTest {
     @Test
     @DisplayName("도메인 테스")
     void builder() {
-        Event event = Event.builder()
+        com.mins.corona.api.event.Event event = com.mins.corona.api.event.Event.builder()
                 .name("Mins Drinks")
                 .description("Mins Drinks Sale")
                 .build();
@@ -18,7 +18,7 @@ class EventTest {
 
     @Test
     void javaBean() {
-        Event event = new Event();
+        com.mins.corona.api.event.Event event = new com.mins.corona.api.event.Event();
         String test = "Test";
         event.setName(test);
 

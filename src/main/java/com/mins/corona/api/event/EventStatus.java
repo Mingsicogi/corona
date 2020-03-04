@@ -1,4 +1,4 @@
-package com.mins.corona.app.entity;
+package com.mins.corona.api.event;
 
 public enum EventStatus {
     DRAFT, PUBLISHED, BEGAN_ENROLLMENT
