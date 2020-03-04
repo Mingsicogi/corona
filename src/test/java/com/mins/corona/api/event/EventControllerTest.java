@@ -95,11 +95,38 @@ class EventControllerTest {
 
 
     @Test
-    @Order(2)
+    @Order(3)
     @Rollback
-    @DisplayName("이벤트DTO 유효성 검사 테스트")
+    @DisplayName("1. 이벤트DTO 유효성 검사 테스트")
     void test3() throws Exception {
         EventDTO eventDTO = EventDTO.builder().build();
+
+        mockMvc.perform(post("/api/events")
+                .content(objectMapper.writeValueAsBytes(eventDTO))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaTypes.HAL_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Order(4)
+    @Rollback
+    @DisplayName("2. 이벤트DTO 유효성 검사 테스트")
+    void test4() throws Exception {
+        // GIVE
+        EventDTO eventDTO = EventDTO.builder()
+                .name("Corona Project")
+                .description("REST Test Project")
+                .beginEnrollmentDateTime(LocalDateTime.now().plusDays(8))
+                .closeEnrollmentDateTime(LocalDateTime.now().plusDays(7))
+                .beginEventDateTime(LocalDateTime.now().plusHours(6))
+                .endEventDateTime(LocalDateTime.now().plusHours(5))
+                .basePrice(1234)
+                .maxPrice(200)
+                .limitOfEnrollment(100)
+                .location("강남역")
+                .build();
 
         mockMvc.perform(post("/api/events")
                 .content(objectMapper.writeValueAsBytes(eventDTO))

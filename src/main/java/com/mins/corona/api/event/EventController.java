@@ -19,9 +19,12 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @RequestMapping(value = "/api/events", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaTypes.HAL_JSON_VALUE)
 public class EventController {
 
+    private final EventService eventService;
+
     private final EventRepository eventRepository;
 
-    public EventController(EventRepository eventRepository) {
+    public EventController(EventService eventService, EventRepository eventRepository) {
+        this.eventService = eventService;
         this.eventRepository = eventRepository;
     }
 
@@ -35,7 +38,10 @@ public class EventController {
         Event dbParam = new Event();
         BeanUtils.copyProperties(event, dbParam);
 
+        eventService.parameterValidationCheck(dbParam); // validation check
+
         Event savedEvent = eventRepository.save(dbParam); // db save
+
         WebMvcLinkBuilder webMvcLinkBuilder = linkTo(EventController.class).slash(savedEvent.getId());
         return ResponseEntity.created(webMvcLinkBuilder.toUri()).body(savedEvent);
     }
