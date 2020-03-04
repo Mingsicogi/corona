@@ -13,7 +13,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -32,11 +31,11 @@ class EventControllerTest {
     @Test
     @Order(1)
     @Rollback
-    @DisplayName("이벤트 생성 성공 테스")
+    @DisplayName("이벤트 생성 성공 테스트")
     void test1() throws Exception {
 
         // GIVE
-        Event event = Event.builder()
+        EventDTO event = EventDTO.builder()
                 .name("Corona Project")
                 .description("REST Test Project")
                 .beginEnrollmentDateTime(LocalDateTime.now())
@@ -90,6 +89,22 @@ class EventControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaTypes.HAL_JSON_VALUE)
                         .content(objectMapper.writeValueAsBytes(event)))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+
+    @Test
+    @Order(2)
+    @Rollback
+    @DisplayName("이벤트DTO 유효성 검사 테스트")
+    void test3() throws Exception {
+        EventDTO eventDTO = EventDTO.builder().build();
+
+        mockMvc.perform(post("/api/events")
+                .content(objectMapper.writeValueAsBytes(eventDTO))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaTypes.HAL_JSON_VALUE))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }
