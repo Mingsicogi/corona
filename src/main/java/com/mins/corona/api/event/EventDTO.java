@@ -1,10 +1,12 @@
 package com.mins.corona.api.event;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
+@Builder
 public class EventDTO {
     private String name;
     private String description;
