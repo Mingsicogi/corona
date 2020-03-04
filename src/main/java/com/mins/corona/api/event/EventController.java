@@ -1,5 +1,6 @@
 package com.mins.corona.api.event;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.MediaType;
@@ -22,8 +23,12 @@ public class EventController {
     }
 
     @PostMapping
-    public ResponseEntity createEvent(@RequestBody Event event) {
-        Event savedEvent = eventRepository.save(event); // db save
+    public ResponseEntity createEvent(@RequestBody EventDTO event) {
+
+        Event dbParam = new Event();
+        BeanUtils.copyProperties(event, dbParam);
+
+        Event savedEvent = eventRepository.save(dbParam); // db save
         WebMvcLinkBuilder webMvcLinkBuilder = linkTo(EventController.class).slash(savedEvent.getId());
         return ResponseEntity.created(webMvcLinkBuilder.toUri()).body(savedEvent);
     }
