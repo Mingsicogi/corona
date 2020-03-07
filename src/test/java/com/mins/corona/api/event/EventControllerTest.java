@@ -59,6 +59,10 @@ class EventControllerTest {
                 .andExpect(jsonPath("id").exists())
                 .andExpect(header().exists(HttpHeaders.LOCATION))
 //                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE))
+                .andExpect(jsonPath("_links.self").exists())
+                .andExpect(jsonPath("_links.query-events").exists())
+                .andExpect(jsonPath("_links.update-event").exists())
+//                .andExpect(jsonPath("profile").exists())
         ;
     }
 
@@ -135,4 +139,6 @@ class EventControllerTest {
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }
+
+    //TODO @Parameters 를 활용해 중복된 테스트 코드를 줄이고 가독성을 높이는 코드 만들기.
 }

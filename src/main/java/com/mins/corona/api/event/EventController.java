@@ -42,7 +42,8 @@ public class EventController {
 
         Event savedEvent = eventRepository.save(dbParam); // db save
 
-        WebMvcLinkBuilder webMvcLinkBuilder = linkTo(EventController.class).slash(savedEvent.getId());
-        return ResponseEntity.created(webMvcLinkBuilder.toUri()).body(savedEvent);
+        return ResponseEntity
+                .created(linkTo(EventController.class).slash(savedEvent.getId()).toUri())
+                .body(new EventResource(savedEvent));
     }
 }
