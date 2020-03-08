@@ -1,6 +1,7 @@
 package com.mins.corona.api.event;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.mins.corona.utils.CommonUtil;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -20,6 +21,6 @@ public class EventResource extends RepresentationModel {
         add(webMvcLinkBuilder.slash(event.getId()).withSelfRel());
         add(webMvcLinkBuilder.slash(event.getId()).withRel("update-event"));
         add(webMvcLinkBuilder.withRel("query-events"));
-        add(new Link("/docs/index.html#resources-events-create").withRel("profile"));
+        add(new Link(CommonUtil.getMakeUrl("/docs/index.html#resources-events-create")).withRel("profile"));
     }
 }

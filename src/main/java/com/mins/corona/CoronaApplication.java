@@ -7,7 +7,8 @@ import org.springframework.context.annotation.PropertySource;
 
 //@formatter:off
 @PropertySource(value = {
-		"classpath:properties/common.properties"
+		"classpath:properties/global-common.properties",
+		"classpath:common.properties"
 }, encoding = "UTF-8")
 //@formatter:on
 @EnableCaching
