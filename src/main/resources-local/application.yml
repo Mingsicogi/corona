@@ -1,5 +1,3 @@
-
-
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/corona
@@ -42,3 +40,14 @@ spring:
   jackson:
     deserialization:
       fail-on-unknown-properties: true
+
+
+logging:
+  level:
+      org:
+        hibernate:
+          SQL: DEBUG
+          type:
+            descriptor:
+              sql:
+                BasicBinder: TRACE
