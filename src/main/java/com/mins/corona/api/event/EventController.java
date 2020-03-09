@@ -2,7 +2,6 @@ package com.mins.corona.api.event;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.hateoas.MediaTypes;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
