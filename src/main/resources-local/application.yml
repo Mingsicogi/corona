@@ -35,3 +35,19 @@ spring:
   cache:
     ehcache:
       config: classpath:ehcache.xml
+
+  # 정의 되지 않은 필드 마샬링 시, 에러발생.(컨트롤러 data binding의 경우 400리턴)
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+
+
+logging:
+  level:
+      org:
+        hibernate:
+          SQL: DEBUG
+          type:
+            descriptor:
+              sql:
+                BasicBinder: TRACE
