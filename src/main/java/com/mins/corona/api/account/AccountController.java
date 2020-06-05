@@ -23,7 +23,9 @@ public class AccountController {
         Account accountInfo = redisService.get(param.getName(), Account.class);
         if(accountInfo == null) {
             accountInfo = accountRepository.findByName(param.getName());
-            redisService.put(accountInfo.getName(), accountInfo);
+            if(accountInfo != null) {
+                redisService.put(accountInfo.getName(), accountInfo);
+            }
         }
 
         return ResponseEntity.ok(accountInfo);
