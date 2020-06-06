@@ -1,7 +1,9 @@
 package com.mins.corona.common.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mins.corona.common.service.RedisService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ public class RedisServiceImpl implements RedisService {
     private final RedisTemplate<String, Object> redisTemplate;
     private static ValueOperations<String, Object> valueOperations;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @PostConstruct
     public void init() {
         valueOperations = redisTemplate.opsForValue();
@@ -27,6 +32,6 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public <T> T get(String key, Class<T> clz) {
-        return (T)valueOperations.get(key);
+        return objectMapper.convertValue(valueOperations.get(key), clz);
     }
 }

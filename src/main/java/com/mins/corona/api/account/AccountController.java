@@ -1,6 +1,5 @@
 package com.mins.corona.api.account;
 
-import com.mins.corona.api.account.dto.RedisDTO;
 import com.mins.corona.app.entity.Account;
 import com.mins.corona.app.repository.AccountRepository;
 import com.mins.corona.common.service.RedisService;
@@ -33,7 +32,6 @@ public class AccountController {
     @PostMapping(value = "/account/add", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> add(@RequestBody Account param) {
         accountRepository.save(param);
-        redisService.put(param.getName(), param);
         return ResponseEntity.ok("OK");
     }
 }
