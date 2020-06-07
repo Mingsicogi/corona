@@ -1,6 +1,7 @@
 package com.mins.corona.api.account;
 
 import com.mins.corona.api.account.dto.RedisDTO;
+import com.mins.corona.app.entity.Account;
 import com.mins.corona.app.repository.AccountRepository;
 import com.mins.corona.common.service.RedisService;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +18,22 @@ public class AccountController {
     private final RedisService redisService;
     private final AccountRepository accountRepository;
 
-    @PostMapping(value = "/redis/test", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> redisTest(@RequestBody RedisDTO param) {
-        redisService.put(param.getKey(), param);
-        return ResponseEntity.ok(redisService.get(param.getKey(), RedisDTO.class));
+    @PostMapping(value = "/account/get", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> get(@RequestBody Account param) {
+
+        Account accountInfo = redisService.get(param.getName(), Account.class);
+        if(accountInfo == null) {
+            accountInfo = accountRepository.findByName(param.getName());
+            redisService.put(accountInfo.getName(), accountInfo);
+        }
+
+        return ResponseEntity.ok(accountInfo);
+    }
+
+    @PostMapping(value = "/account/add", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> add(@RequestBody Account param) {
+        accountRepository.save(param);
+        redisService.put(param.getName(), param);
+        return ResponseEntity.ok("OK");
     }
 }
