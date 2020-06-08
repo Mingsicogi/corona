@@ -10,10 +10,12 @@ public class TomcatConfiguration implements WebServerFactoryCustomizer<TomcatSer
 
     @Override
     public void customize(TomcatServletWebServerFactory factory) {
-        factory.addConnectorCustomizers(connector -> {
-            connector.setAttribute("relaxedQueryChars", "`^{}[]" +
-                    "" +
-                    "");
-        });
+//        factory.addConnectorCustomizers(connector -> {
+//            connector.setAttribute("relaxedQueryChars", "`^{}[]");
+//        });
+
+        CustomErrorValve customErrorValve = new CustomErrorValve();
+        factory.addContextValves(customErrorValve);
+        factory.addEngineValves(customErrorValve);
     }
 }
