@@ -20,13 +20,13 @@ public class AccountController {
     @PostMapping(value = "/account/get", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> get(@RequestBody Account param) {
 
-        Account accountInfo = redisService.get(param.getName(), Account.class);
-        if(accountInfo == null) {
-            accountInfo = accountRepository.findByName(param.getName());
-            if(accountInfo != null) {
-                redisService.put(accountInfo.getName(), accountInfo);
-            }
-        }
+//        Account accountInfo = redisService.get(param.getName(), Account.class);
+//        if(accountInfo == null) {
+            Account accountInfo = accountRepository.findByName(param.getName());
+//            if(accountInfo != null) {
+//                redisService.put(accountInfo.getName(), accountInfo);
+//            }
+//        }
 
         return ResponseEntity.ok(accountInfo);
     }
