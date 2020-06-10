@@ -18,6 +18,7 @@ public class Infectee {
 
 	@Id
 	@GeneratedValue
+	@Column(name = "infectee_id")
 	private Long id;
 
 	private Long infectOrder;
