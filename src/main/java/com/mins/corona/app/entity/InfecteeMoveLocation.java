@@ -21,6 +21,7 @@ public class InfecteeMoveLocation {
     private Date arriveYmdt; //
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "infectee_id")
     @JsonBackReference
     private Infectee infectee;
 }
