@@ -1,4 +1,4 @@
-package com.mins.corona.common.aspect;
+package com.mins.corona.common.annotation.aspect;
 
 import com.mins.corona.common.service.RedisService;
 import lombok.RequiredArgsConstructor;

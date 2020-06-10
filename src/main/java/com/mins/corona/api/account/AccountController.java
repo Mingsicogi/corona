@@ -2,14 +2,20 @@ package com.mins.corona.api.account;
 
 import com.mins.corona.app.entity.Account;
 import com.mins.corona.app.repository.AccountRepository;
+import com.mins.corona.common.SessionContextHolder;
 import com.mins.corona.common.service.RedisService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class AccountController {
@@ -27,6 +33,12 @@ public class AccountController {
 //                redisService.put(accountInfo.getName(), accountInfo);
 //            }
 //        }
+
+
+        log.info(">>>> In Current Thread : {}", SessionContextHolder.getSessionContextHolder());
+
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        executorService.execute(() -> log.info(">>>> In New Thread : {}", SessionContextHolder.getSessionContextHolder()));
 
         return ResponseEntity.ok(accountInfo);
     }
