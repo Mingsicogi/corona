@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Infectee {
+public class Infectee extends BaseTimeEntity {
 
 	@Id
 	@GeneratedValue
@@ -43,7 +43,7 @@ public class Infectee {
 
 	private String detailInfo;
 
-	private Date regYmdt;
+//	private Date regYmdt;
 
 	public void addLocation(InfecteeMoveLocation location) {
 		this.location.add(location);

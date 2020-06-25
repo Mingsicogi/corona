@@ -137,9 +137,7 @@
     </div>
 </div>
 
-</body>
-</html>
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         callBootstrapCalendar();  	// 요약내용을 쓰는 필드는 기본 컨텐츠일때만 사용
 
@@ -259,3 +257,6 @@
         return  year + '' + month + '' + day;
     }
 </script>
+
+</body>
+</html>
