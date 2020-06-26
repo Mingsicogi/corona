@@ -2,16 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
 <!DOCTYPE html>
 <html>
 <jsp:include page="common/default.jsp"/>
-<body style="color: white">
-<style>
-    .datepicker {
-        color: #0f0f0f;
-    }
-</style>
+<body>
+
 <br>
 <br>
 <div class="row">
@@ -81,12 +76,8 @@
                                             <td><fmt:parseDate var="parseDate" value="${result.issueOpenDate}" pattern="yyyy-MM-dd HH:mm"/>
                                                 <fmt:formatDate value="${parseDate}" pattern="yyyy-MM-dd HH:mm"/>
                                             </td>
-                                            <td><fmt:parseDate var="parseDate" value="${result.regYmdt}" pattern="yyyy-MM-dd HH:mm"/>
-                                                <fmt:formatDate value="${parseDate}" pattern="yyyy-MM-dd HH:mm"/>
-                                            </td>
-                                            <td><fmt:parseDate var="parseDate" value="${result.modYmdt}" pattern="yyyy-MM-dd HH:mm"/>
-                                                <fmt:formatDate value="${parseDate}" pattern="yyyy-MM-dd HH:mm"/>
-                                            </td>
+                                            <td>${result.regYmdt}</td>
+                                            <td>${result.modYmdt}</td>
                                             <td>
                                                 <div>
                                                     <button class="btn btn-sm btn-primary" onclick="openAddLocationModal('addModal','${result.id}')">이동경로 추가</button>
