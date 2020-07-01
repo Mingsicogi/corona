@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://mins-dev-s3.s3.ap-northeast-2.amazonaws.com/resources/vendors/nprogress/nprogress.css" />
     <link rel="stylesheet" href="https://mins-dev-s3.s3.ap-northeast-2.amazonaws.com/resources/vendors/animate.css/animate.min.css" />
     <link rel="stylesheet" href="https://mins-dev-s3.s3.ap-northeast-2.amazonaws.com/resources/custom/css/custom.min.css" />
+    <link rel="stylesheet" href="/resources/css/default.css" />
 
     <link href="https://mins-dev-s3.s3.ap-northeast-2.amazonaws.com/resources/favicon.ico" rel="icon" type="image/x-icon"/>
     <link href="https://mins-dev-s3.s3.ap-northeast-2.amazonaws.com/resources/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
