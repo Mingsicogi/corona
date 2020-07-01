@@ -9,7 +9,4 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ErrorConfiguration {
-
-//    @Bean
-//    public Co
 }
