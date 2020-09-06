@@ -35,7 +35,7 @@ public class GovernmentDataService {
         }
     }
 
-//    @Cacheable(cacheNames = "commonCache", key = "#cacheKey")
+    @Cacheable(cacheNames = "commonCache", key = "#cacheKey")
     public List<InfectedPersonInfoOfRegionDTO> getInfectedPersonList(String cacheKey) {
         Elements trs = this.getData().getElementsByTag("tr");
 
@@ -62,7 +62,7 @@ public class GovernmentDataService {
         return dataList;
     }
 
-//    @Cacheable(cacheNames = "commonCache", key = "#cacheKey")
+    @Cacheable(cacheNames = "commonCache", key = "#cacheKey")
     public List<InfectedPersonInfoOfRegionDTO> getInfectedPersonListOrderByTotalCnt(List<InfectedPersonInfoOfRegionDTO> infectedPersonList, String cacheKey) {
         return infectedPersonList.stream().filter(InfectedPersonInfoOfRegionDTO::isRegion).sorted((o1, o2) -> {
             if(o1.getTotalInfectPersonCnt() == o2.getTotalInfectPersonCnt()) {

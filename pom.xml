@@ -10,10 +10,10 @@
     </parent>
     <groupId>com.mins</groupId>
     <artifactId>corona</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
     <name>corona</name>
-    <description>Corona Noti Web Service</description>
+    <description>Corona Web Service</description>
 
     <properties>
         <java.version>11</java.version>
