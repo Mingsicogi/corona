@@ -123,7 +123,7 @@
                 strong = '0' + strong;
             }
 
-            const value = parseFloat('0.' + strong) * 1.4;
+            const value = parseFloat('0.' + strong) * 1.6;
             map.data.overrideStyle(map.data._features[i], {
                 fillOpacity: value
             });
@@ -141,6 +141,11 @@
                 left: e.offset.x,
                 top: e.offset.y
             }).text(regionName);
+        });
+
+        // 마우스 아웃 이벤트 처리
+        map.data.addListener('mouseout', function(e) {
+            tooltip.hide().empty();
         });
     }
 </script>
