@@ -26,10 +26,6 @@ spring:
       charset: UTF-8
       enabled: true
       force: true
-  mvc:
-    view:
-      prefix: /WEB-INF/views/
-      suffix: .jsp
 
   cache:
     ehcache:

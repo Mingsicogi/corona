@@ -44,7 +44,6 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.200</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -53,13 +52,17 @@
 
 
         <!-- web page 관련 -->
-        <dependency>
+        <!--<dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
         <!-- cache -->
@@ -74,11 +77,11 @@
         </dependency>
 
         <!-- war 배포를 위함 -->
-        <dependency>
+       <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
-        </dependency>
+        </dependency>-->
 
         <!-- 유틸관련 -->
         <dependency>
@@ -113,21 +116,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>pl.pragmatists</groupId>
-            <artifactId>JUnitParams</artifactId>
-            <version>1.1.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
@@ -137,19 +125,19 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.2.3</version>
                 <configuration>
                     <webResources>
                         <resource>
-                            <!-- this is relative to the pom.xml directory -->
+                            &lt;!&ndash; this is relative to the pom.xml directory &ndash;&gt;
                             <directory>${basedir}/src/main/webapp/resources</directory>
                         </resource>
                     </webResources>
                 </configuration>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
