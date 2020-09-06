@@ -15,8 +15,7 @@
                     </div>
                     <div class="col-md-6">
                         <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                            <span>August 8, 2020 - September 6, 2020</span></b>
+                            <span th:text="'' + ${today}"></span></b>
                         </div>
                     </div>
                 </div>
@@ -29,7 +28,7 @@
                         <div class="clearfix"></div>
                     </div>
                     <div th:each="item : ${rankList}">
-                        <p th:text="${item.regionName}"></p>
+                        <p th:text="${item.regionEngName}"></p>
                         <div th:class="''">
                             <div th:style="'width:76%'" class="progress progress_sm" >
                                 <div th:style="'width:' + ${item.percentOfCountry} + '%'" class="progress-bar bg-green" role="progressbar" data-transitiongoal="80" aria-valuenow="79"></div>

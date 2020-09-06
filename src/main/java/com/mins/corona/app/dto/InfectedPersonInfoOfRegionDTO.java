@@ -1,5 +1,6 @@
 package com.mins.corona.app.dto;
 
+import com.mins.corona.app.cd.RegionCd;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 @AllArgsConstructor
 public class InfectedPersonInfoOfRegionDTO {
     private String regionName;
+    private String regionEngName;
     private Integer todayInfectedPersonCnt;
     private Integer totalInfectPersonCnt;
     private Integer isolationPersonCnt;
@@ -40,5 +42,9 @@ public class InfectedPersonInfoOfRegionDTO {
         }
 
         return false;
+    }
+
+    public String getRegionEngName() {
+        return RegionCd.valueOf(regionName).getEng();
     }
 }

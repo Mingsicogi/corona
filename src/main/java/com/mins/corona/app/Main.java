@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +32,7 @@ public class Main {
 		infectRankList.forEach(person -> person.setPercentOfCountry(person.getTotalInfectPersonCnt() * 100 / totalInfectedPersonInfoOfCountry.getTotalInfectPersonCnt()));
 
 		model.addAttribute("rankList", infectRankList);
+		model.addAttribute("today", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
 		return "main";
 	}
