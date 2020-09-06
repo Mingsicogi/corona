@@ -1,25 +1,152 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header">
-
-
-
     <title>CORONA-19 Dashboard</title>
 </head>
 <body>
     <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
 
-    <div id="map" style="width:100%; height:400px;"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="dashboard_graph">
+                <div class="row x_title">
+                    <div class="col-md-6">
+                        <h3><small>CORONA-19 Virus infection distribution map by region in Korea</small></h3>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                            <span>August 8, 2020 - September 6, 2020</span></b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-9">
+                    <div id="map" class="demo-placeholder" style="padding: 0px; position: relative; width: 100px; height: 100px"></div>
+                </div>
+                <div class="col-md-3 col-sm-3  bg-white">
+                    <div class="x_title">
+                        <h2>CORONA-19 Virus Ranking of regions</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div th:each="item : ${rankList}">
+                        <p th:text="${item.regionName}"></p>
+                        <div th:class="''">
+                            <div th:style="'width:76%'" class="progress progress_sm" >
+                                <div th:style="'width:' + ${item.percentOfCountry} + '%'" class="progress-bar bg-green" role="progressbar" data-transitiongoal="80" aria-valuenow="79"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
 
     <div th:replace="fragments/footer :: footer"></div>
 
     <script>
-        const mapOptions = {
-            center: new naver.maps.LatLng(37.3595704, 127.105399),
-            zoom: 10
-        };
+        const map = new naver.maps.Map(document.getElementById('map'), {
+            zoom: 7,
+            minZoom: 7, //지도의 최소 줌 레벨
+            mapTypeId: 'normal',
+            zoomControl: true,
+            center: new naver.maps.LatLng(36.498088, 126.966560)
+        });
 
-        var map = new naver.maps.Map('map', mapOptions);
+        const tooltip = $('<div style="position:absolute;z-index:1000;padding:5px 10px;background-color:#fff;border:solid 2px #000;font-size:14px;pointer-events:none;display:none;"></div>');
+        tooltip.appendTo(map.getPanes().floatPane);
+
+        $(document).ready(function() {
+            // var mapOptions = {
+            //     center: new naver.maps.LatLng(36.498088, 126.966560),
+            //     zoomControl: true,
+            //     zoom: 10
+            // };
+            // var map = new naver.maps.Map('map', mapOptions);
+
+            const $window = $(window);
+
+            function getMapSize() {
+                const size = new naver.maps.Size($window.width()*0.725, $window.height()*0.95);
+                return size;
+            };
+
+            $window.resize(function() {
+                map.setSize(getMapSize());
+            });
+
+            map.setSize(getMapSize());
+
+            naver.maps.Event.once(map, 'init_stylemap', function () {
+                $.ajax({
+                    url: '/data/region.json',
+                    success: function(data) {
+                        return function(geojson) {
+                            map.data.addGeoJson(geojson);
+                            startDataLayer();
+                        }
+                    }('')
+                });
+            });
+        });
+
+        function startDataLayer() {
+            map.data.setStyle(function(feature) {
+                var styleOptions = {
+                    fillColor: '#ff0000',
+                    fillOpacity: 0.0001,
+                    strokeColor: '#ff0000',
+                    strokeWeight: 2,
+                    strokeOpacity: 0.4
+                };
+
+                if (feature.getProperty('focus')) {
+                    styleOptions.fillOpacity = 0.6;
+                    styleOptions.fillColor = '#0f0';
+                    styleOptions.strokeColor = '#0f0';
+                    styleOptions.strokeWeight = 4;
+                    styleOptions.strokeOpacity = 1;
+                }
+
+                return styleOptions;
+            });
+
+            // regionGeoJson.forEach(function(geojson) {
+            //     map.data.addGeoJson(geojson);
+            // });
+
+            map.data.addListener('click', function(e) {
+                var feature = e.feature;
+
+                if (feature.getProperty('focus') !== true) {
+                    feature.setProperty('focus', true);
+                } else {
+                    feature.setProperty('focus', false);
+                }
+            });
+
+            map.data.addListener('mouseover', function(e) {
+                var feature = e.feature,
+                    regionName = feature.getProperty('CTP_KOR_NM');
+
+                tooltip.css({
+                    display: '',
+                    left: e.offset.x,
+                    top: e.offset.y
+                }).text(regionName);
+
+                map.data.overrideStyle(feature, {
+                    fillOpacity: 0.6,
+                    strokeWeight: 4,
+                    strokeOpacity: 1
+                });
+            });
+
+            map.data.addListener('mouseout', function(e) {
+                tooltip.hide().empty();
+                map.data.revertStyle();
+            });
+        }
     </script>
 </body>
 </html>

@@ -83,6 +83,13 @@
             <scope>provided</scope>
         </dependency>-->
 
+        <!-- web 크롤링 관련 -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.13.1</version>
+        </dependency>
+
         <!-- 유틸관련 -->
         <dependency>
             <groupId>org.apache.commons</groupId>

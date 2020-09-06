@@ -1,5 +1,7 @@
 package com.mins.corona.app;
 
+import com.mins.corona.app.dto.InfectedPersonInfoOfRegionDTO;
+import com.mins.corona.app.service.GovernmentDataService;
 import com.mins.corona.app.service.NaverMapService;
 import com.mins.corona.utils.CommonUtil;
 import lombok.RequiredArgsConstructor;
@@ -8,18 +10,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
 public class Main {
 
-	private final NaverMapService naverMapService;
+	private final GovernmentDataService governmentDataService;
 
 	@GetMapping(value = {"/", "/main", "", "/index"})
 	public String getPage(Model model) {
-		Optional<String> infecteeInfoListAsJsonString = CommonUtil.objectToString(naverMapService.getAllInfecteeList("infecteeInfoList"));
-		model.addAttribute("infecteeInfoJsonStr", infecteeInfoListAsJsonString.orElse("noData"));
+
+		List<InfectedPersonInfoOfRegionDTO> infectList = governmentDataService.getInfectedPersonList("infectList");
+
+		InfectedPersonInfoOfRegionDTO totalInfectedPersonInfoOfCountry = infectList.get(0);
+
+		List<InfectedPersonInfoOfRegionDTO> infectRankList = governmentDataService.getInfectedPersonListOrderByTotalCnt(infectList, "infectRankList");
+		infectRankList.forEach(person -> person.setPercentOfCountry(person.getTotalInfectPersonCnt() * 100 / totalInfectedPersonInfoOfCountry.getTotalInfectPersonCnt()));
+
+		model.addAttribute("rankList", infectRankList);
 
 		return "main";
 	}
