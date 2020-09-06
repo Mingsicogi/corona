@@ -1,14 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html>
 <jsp:include page="common/default.jsp"/>
-<body style="color: white">
-<style>
-    .datepicker {
-        color: #0f0f0f;
-    }
-</style>
+<body>
+
 <br>
 <br>
 <div class="col-lg-6">
@@ -137,9 +134,7 @@
     </div>
 </div>
 
-</body>
-</html>
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         callBootstrapCalendar();  	// 요약내용을 쓰는 필드는 기본 컨텐츠일때만 사용
 
@@ -259,3 +254,6 @@
         return  year + '' + month + '' + day;
     }
 </script>
+
+</body>
+</html>

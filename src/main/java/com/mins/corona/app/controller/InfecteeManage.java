@@ -90,7 +90,7 @@ public class InfecteeManage {
 			infectee.setCountry(param.getCountry());
 			infectee.setIssueOpenDate(SDF.parse(param.getIssueOpenDate()));
 			infectee.addLocation(location);
-			infectee.setRegYmdt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+//			infectee.setRegYmdt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
 
 
 		} catch (ParseException e) {
