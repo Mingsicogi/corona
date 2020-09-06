@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 public class InfectedPersonInfoOfRegionDTO {
     private String regionName;
     private String regionEngName;
+    private String regionId;
     private Integer todayInfectedPersonCnt;
     private Integer totalInfectPersonCnt;
     private Integer isolationPersonCnt;
@@ -46,5 +47,9 @@ public class InfectedPersonInfoOfRegionDTO {
 
     public String getRegionEngName() {
         return RegionCd.valueOf(regionName).getEng();
+    }
+
+    public String getRegionId() {
+        return RegionCd.valueOf(regionName).getRegionId();
     }
 }
