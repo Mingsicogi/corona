@@ -23,5 +23,5 @@
 2. JPA
 
 
-
-
+# Main page
+![alt text](http://url/to/img.png)
