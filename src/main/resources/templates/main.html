@@ -24,12 +24,12 @@
                 <div id="map" class="demo-placeholder"
                      style="padding: 0px; position: relative; width: 100px; height: 100px"></div>
             </div>
-            <div class="col-md-3 col-sm-3  bg-white">
-                <div class="x_title">
-                    <h2>CORONA-19 Virus Ranking of regions</h2>
+            <div class="col-md-3 col-sm-3 bg-white" >
+                <div class="x_title" style="text-align: center">
+                    <div><h4>CORONA-19 Virus Ranking of regions</h4></div>
                     <div class="clearfix"></div>
                 </div>
-                <div th:each="item : ${rankList}">
+                <div th:each="item : ${rankList}" style="margin-left: 10px">
                     <input type="hidden" th:id="${item.regionId}" th:value="${item.percentOfCountry}">
                     <p th:id="'eng_' + ${item.regionId}" th:text="${item.regionEngName}"></p>
                     <div th:class="''">
@@ -69,7 +69,7 @@
         // map resize handling
         const $window = $(window);
         function getMapSize() {
-            return new naver.maps.Size($window.width() * 0.725, $window.height() * 0.95);
+            return new naver.maps.Size($window.width() * 0.93, $window.height() * 0.95);
         }
         $window.resize(function () {
             map.setSize(getMapSize());
