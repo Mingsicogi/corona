@@ -21,7 +21,7 @@ public class InfectedPersonInfoOfRegionDTO {
     private Integer deathPersonCnt;
     private Integer releasePersonCnt;
 
-    private Integer percentOfCountry;
+    private String percentOfCountry;
 
     public InfectedPersonInfoOfRegionDTO(String regionName, Integer todayInfectedPersonCnt, Integer totalInfectPersonCnt, Integer isolationPersonCnt, Integer deathPersonCnt, Integer releasePersonCnt) {
         this.regionName = regionName;

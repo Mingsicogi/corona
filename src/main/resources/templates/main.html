@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header">
     <title>CORONA-19 Dashboard</title>
+
+
 </head>
 <body>
 <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
@@ -20,6 +22,30 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-12" style="display: inline-block;">
+                <div class="tile_count">
+                    <div class="col-md-2 col-sm-4  tile_stats_count">
+                        <span class="count_top">Today Infected</span>
+                        <div class="count" th:text="${todayTotalInfectedPersonCnt}" style="color: orangered"></div>
+                    </div>
+                    <div class="col-md-2 col-sm-4  tile_stats_count">
+                        <span class="count_top">Total Infected</span>
+                        <div class="count" th:text="${totalInfectedPersonCnt}"></div>
+                    </div>
+                    <div class="col-md-2 col-sm-4  tile_stats_count">
+                        <span class="count_top">Isolation</span>
+                        <div class="count" th:text="${isolationPersonCnt}"></div>
+                    </div>
+                    <div class="col-md-2 col-sm-4  tile_stats_count">
+                        <span class="count_top">Recovered</span>
+                        <div class="count" th:text="${releasePersonCnt}"></div>
+                    </div>
+                    <div class="col-md-2 col-sm-4  tile_stats_count">
+                        <span class="count_top">Deaths</span>
+                        <div class="count" th:text="${deathPersonCnt}"></div>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-9 col-sm-9">
                 <div id="map" class="demo-placeholder"
                      style="padding: 0px; position: relative; width: 100px; height: 100px"></div>
@@ -31,11 +57,14 @@
                 </div>
                 <div th:each="item : ${rankList}" style="margin-left: 10px">
                     <input type="hidden" th:id="${item.regionId}" th:value="${item.percentOfCountry}">
+                    <input type="hidden" th:id="${'rtotal_' + item.regionId}" th:value="${item.totalInfectPersonCnt}">
+                    <input type="hidden" th:id="${'ttotal_' + item.regionId}" th:value="${item.todayInfectedPersonCnt}">
                     <p th:id="'eng_' + ${item.regionId}" th:text="${item.regionEngName}"></p>
                     <div th:class="''">
                         <div th:style="'width:76%'" class="progress progress_sm">
                             <div th:style="'width:' + ${item.percentOfCountry} + '%'" class="progress-bar bg-green"
                                  role="progressbar" data-transitiongoal="80" aria-valuenow="79"></div>
+                            <div th:text="${item.percentOfCountry + '%'}" style="text-align: right; color: grey"></div>
                         </div>
                     </div>
                 </div>
@@ -123,7 +152,8 @@
                 strong = '0' + strong;
             }
 
-            const value = parseFloat('0.' + strong) * 1.6;
+            let floatValue = parseFloat(strong);
+            const value = floatValue > 15 ? floatValue * 0.04 : floatValue * 0.09;
             map.data.overrideStyle(map.data._features[i], {
                 fillOpacity: value
             });
@@ -132,20 +162,21 @@
         });
 
         // 마우스 오버 이벤트 처리
-        map.data.addListener('mouseover', function (e) {
+        map.data.addListener('click', function (e) {
             const regionId = e.feature.getProperty('CTPRVN_CD');
             const regionName = $("#eng_" + regionId).text();
+            const totalCountOfRegion = $("#rtotal_" + regionId).val();
+            const todayCountOfPerson = $("#ttotal_" + regionId).val();
+            const tooltipText = regionName
+                + "<br>" + "total : " + totalCountOfRegion
+                + "<br>" + "today : " + todayCountOfPerson
+            ;
 
             tooltip.css({
                 display: '',
                 left: e.offset.x,
                 top: e.offset.y
-            }).text(regionName);
-        });
-
-        // 마우스 아웃 이벤트 처리
-        map.data.addListener('mouseout', function(e) {
-            tooltip.hide().empty();
+            }).html(tooltipText);
         });
     }
 </script>

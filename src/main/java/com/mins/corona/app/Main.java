@@ -29,9 +29,14 @@ public class Main {
 		List<InfectedPersonInfoOfRegionDTO> infectList = governmentDataService.getInfectedPersonList("infectList");
 
 		InfectedPersonInfoOfRegionDTO totalInfectedPersonInfoOfCountry = infectList.get(0);
+		model.addAttribute("todayTotalInfectedPersonCnt", String.format("%,3d", totalInfectedPersonInfoOfCountry.getTodayInfectedPersonCnt()));
+		model.addAttribute("totalInfectedPersonCnt", String.format("%,3d", totalInfectedPersonInfoOfCountry.getTotalInfectPersonCnt()));
+		model.addAttribute("isolationPersonCnt", String.format("%,3d", totalInfectedPersonInfoOfCountry.getIsolationPersonCnt()));
+		model.addAttribute("releasePersonCnt", String.format("%,3d", totalInfectedPersonInfoOfCountry.getReleasePersonCnt()));
+		model.addAttribute("deathPersonCnt", String.format("%,3d", totalInfectedPersonInfoOfCountry.getDeathPersonCnt()));
 
 		List<InfectedPersonInfoOfRegionDTO> infectRankList = governmentDataService.getInfectedPersonListOrderByTotalCnt(infectList, "infectRankList");
-		infectRankList.forEach(person -> person.setPercentOfCountry(person.getTotalInfectPersonCnt() * 100 / totalInfectedPersonInfoOfCountry.getTotalInfectPersonCnt()));
+		infectRankList.forEach(person -> person.setPercentOfCountry(String.format("%.2f", (person.getTotalInfectPersonCnt() * 100.0 / totalInfectedPersonInfoOfCountry.getTotalInfectPersonCnt()))));
 
 		model.addAttribute("rankList", infectRankList);
 		model.addAttribute("today", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
