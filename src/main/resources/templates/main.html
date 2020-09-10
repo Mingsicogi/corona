@@ -98,7 +98,7 @@
         // map resize handling
         const $window = $(window);
         function getMapSize() {
-            return new naver.maps.Size($window.width() * 0.93, $window.height() * 1.1);
+            return new naver.maps.Size($window.width() * 0.93, $window.height() * 1.06);
         }
         $window.resize(function () {
             map.setSize(getMapSize());
