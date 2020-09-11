@@ -12,7 +12,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 		"classpath:common.properties"
 }, encoding = "UTF-8")
 //@formatter:on
-@EnableCaching
 @EnableJpaAuditing
 @SpringBootApplication
 public class CoronaApplication {

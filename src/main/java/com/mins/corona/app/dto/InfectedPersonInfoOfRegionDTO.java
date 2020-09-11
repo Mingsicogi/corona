@@ -7,11 +7,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class InfectedPersonInfoOfRegionDTO {
+public class InfectedPersonInfoOfRegionDTO implements Serializable {
     private String regionName;
     private String regionEngName;
     private String regionId;

@@ -47,15 +47,15 @@ spring:
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration
 
-  redis:
-    host: localhost
-    port: 6379
-    lettuce:
-      pool:
-        min-idle: 0
-        max-active: 8
-        max-idle: 8
-        max-wait: 1ms
+#  redis:
+#    host: localhost
+#    port: 6379
+#    lettuce:
+#      pool:
+#        min-idle: 0
+#        max-active: 8
+#        max-idle: 8
+#        max-wait: 1ms
 
 server:
   error:
