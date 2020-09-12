@@ -24,4 +24,4 @@
 
 
 # Main page
-![image](https://github.com/Mingsicogi/corona/blob/master/main.png)
+![image](./main.png)
